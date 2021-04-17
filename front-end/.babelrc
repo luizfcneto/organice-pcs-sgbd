@@ -1,6 +1,11 @@
 {
   "presets": [
-    ["env", { "modules": false }],
-    "stage-3"
-  ]
+    [
+      "babel-preset-env",
+      {
+        "targets": { "node": "10" }
+      }
+    ]
+  ],
+  "plugins": ["@babel/plugin-transform-regenerator"]
 }
