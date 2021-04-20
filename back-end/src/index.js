@@ -3,14 +3,16 @@ const { Pool, Client } = require('pg');
 
 const user = require('./user/user');
 
-const pool = new Client({
+const pool = new Pool({
   user:"postgres",
   host:"localhost",
-  database:"",
-  password:"organice",
+  database:"organice",
+  password:"",
   port:"5432"
 });
 
+
+console.log(pool);
 pool.on('error', (err, client) => {
   console.error('Unexpected error on idle client', err);
   process.exit(-1);
