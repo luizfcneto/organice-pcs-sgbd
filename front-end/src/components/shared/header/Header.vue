@@ -2,7 +2,7 @@
   <div class="header">
     <div class="container-header">
       <img class="logo" src="../../../assets/imgs/logo-header.png" alt="logo" />
-      <a href="#"> Minha Conta </a>
+      <a href="/cadastro"> Minha Conta </a>
     </div>
   </div>
 </template>

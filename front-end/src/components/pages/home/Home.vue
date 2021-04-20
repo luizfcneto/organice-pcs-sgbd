@@ -14,6 +14,9 @@
       </section>
 
       <AssineJa />
+      <ComoFunciona />
+      <ListaCesta />
+      <SobreNos />
     </main>
     <Footer />
   </div>
@@ -24,12 +27,18 @@ import Header from "../../shared/header/Header.vue";
 import Footer from "../../shared/footer/Footer.vue";
 import NavigationBar from "../../shared/navigationBar/NavigationBar.vue";
 import AssineJa from "../../shared/assineJa/AssineJa.vue";
+import ComoFunciona from "../../shared/comoFunciona/ComoFunciona.vue";
+import SobreNos from "../../shared/sobreNos/SobreNos.vue";
+import ListaCesta from "../../shared/listaCesta/ListaCesta.vue";
 
 export default {
   components: {
     Header,
     NavigationBar,
     AssineJa,
+    ComoFunciona,
+    ListaCesta,
+    SobreNos,
     Footer
   }
 };
@@ -44,6 +53,7 @@ export default {
 @media screen and (min-width: 1120px) {
   .figure-section {
     background-color: #c4e3cb;
+    padding: 4em 0em;
   }
 
   .container-figure {
