@@ -1,8 +1,14 @@
 <template>
   <div class="header">
     <div class="container-header">
-      <img class="logo" src="../../../assets/imgs/logo-header.png" alt="logo" />
-      <a href="/cadastro"> Minha Conta </a>
+      <a href="/" target="_self">
+        <img
+          class="logo"
+          src="../../../assets/imgs/logo-header.png"
+          alt="logo"
+        />
+      </a>
+      <a class="btn-minha-conta" href="/cadastro"> Minha Conta </a>
     </div>
   </div>
 </template>
@@ -16,7 +22,7 @@ export default {};
   background-color: #f4f7f7;
 }
 
-a {
+.btn-minha-conta {
   background-color: #8aae92;
   padding: 1em;
   color: #f4f7f7;

@@ -17,6 +17,7 @@
       <ComoFunciona />
       <ListaCesta />
       <SobreNos />
+      <Contato />
     </main>
     <Footer />
   </div>
@@ -30,6 +31,7 @@ import AssineJa from "../../shared/assineJa/AssineJa.vue";
 import ComoFunciona from "../../shared/comoFunciona/ComoFunciona.vue";
 import SobreNos from "../../shared/sobreNos/SobreNos.vue";
 import ListaCesta from "../../shared/listaCesta/ListaCesta.vue";
+import Contato from "../../shared/contato/Contato.vue";
 
 export default {
   components: {
@@ -39,6 +41,7 @@ export default {
     ComoFunciona,
     ListaCesta,
     SobreNos,
+    Contato,
     Footer
   }
 };

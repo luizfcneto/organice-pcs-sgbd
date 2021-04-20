@@ -202,11 +202,13 @@ label #endereco {
   width: 100%;
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
 input {
+  font-family: "Tillana", Arial, Helvetica, sans-serif;
   margin: 1em;
   width: 90%;
   padding: 0.5em 0.5em;
-  font-size: 18px;
+  font-size: 16px;
   border-color: #8aae92;
   border-radius: 5px;
   border-style: solid;
@@ -219,6 +221,7 @@ input:active {
 }
 
 .btn-form {
+  font-family: "Tillana", Arial, Helvetica, sans-serif;
   width: 20%;
   margin: 1.5em;
   padding: 1em 0em;
