@@ -1,16 +1,24 @@
-const { pool } = require('../index');
+const {Pool} = require('pg');
+
+const pool = new Pool({
+  user:"postgres",
+  host:"localhost",
+  database:"organice",
+  password:"",
+  port:"5432"
+})
 
 class User {
 
-  get(data) {
-    pool.connect();
-    pool.query(`SELECT * FROM users WHERE id = ($1)`, values, (err, res) => {
-      if(err) {
-        console.log(err);
-      } else { 
-        console.log(res.rows[0]);
-      }
-    })
+  get(){
+    pool
+    .query('SELECT * FROM users')
+    .then(res => console.log('user:', res.rows[0]))
+    .catch(err =>
+    setImmediate(() => {
+    throw err
+  })
+)
   }
   
   create(data) {
