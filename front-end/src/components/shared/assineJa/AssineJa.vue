@@ -7,11 +7,9 @@
         alt="legumes de boa aparencia"
       />
       <div class="container-p-assine">
-        <p class="assine-p">
-          Receba sua cesta toda semana, com produtos orgânicos selecionados.
-        </p>
+        <p class="assine-p">{{ p1 }}</p>
 
-        <p class="assine-p">Frutas, Legumes e Hortaliças frescas.</p>
+        <p class="assine-p">{{ p2 }}</p>
       </div>
     </div>
 
@@ -22,12 +20,19 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      p1: "Receba sua cesta toda semana, com produtos orgânicos selecionados.",
+      p2: "Frutas, Legumes e Hortaliças frescas."
+    };
+  }
+};
 </script>
 
 <style scoped>
 .assine-section {
-  margin: 3em 0em;
+  margin: 3em 0em 0em 0em;
 }
 
 .container-assine {
@@ -41,7 +46,7 @@ export default {};
 .figure-assine {
   width: 50%;
   height: 50%;
-  margin-right: 1em;
+  margin-right: 2em;
   flex-grow: 2;
 }
 

@@ -148,4 +148,9 @@ table {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.titulo-centralizado {
+  text-align: center;
+  font-size: 36px;
+}
 </style>
