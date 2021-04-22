@@ -1,19 +1,15 @@
 <template>
   <div class="card">
     <div class="header-card">
-      <img
-        class="img-product"
-        src="../../../assets/figures/tomate.jpg"
-        alt=""
-      />
-      <h3 class="card-name">Nome da Cesta</h3>
+      <img class="img-product" :src="imgSrc" alt="" />
+      <h3 class="card-name">{{ nome }}</h3>
     </div>
 
     <div class="body-card">
       <p class="p-description">
-        Descrição dos produtos que compõem a cesta...
+        {{ descricao }}
       </p>
-      <Categoria />
+      <Categoria :nome="categoria" :cor="defineColor(nome)" />
       <button type="submit" class="btn-comprar">Comprar</button>
     </div>
   </div>
@@ -25,6 +21,34 @@ import Categoria from "../categoria/Categoria.vue";
 export default {
   components: {
     Categoria
+  },
+
+  props: ["nome", "imgSrc", "descricao", "categoria"],
+
+  data() {
+    return {
+      colors: ["yellow", "green", "brown", "blue"]
+    };
+  },
+
+  methods: {
+    defineColor: function(nome) {
+      let result = "";
+      switch (nome) {
+        case "Legumes":
+          result = "blue";
+          break;
+        case "Frutas":
+          result = "yellow";
+          break;
+        case "Hortaliças":
+          result = "green";
+          break;
+        default:
+          result = "brown";
+      }
+      return result;
+    }
   }
 };
 </script>
@@ -38,10 +62,16 @@ export default {
   border-radius: 5px;
   height: auto;
   margin: 1em;
+  box-shadow: 1px 1px 2px #8aae92;
+}
+
+.card:hover {
+  box-shadow: 1px 1px 10px #8aae92;
 }
 
 img {
   width: 100%;
+  max-height: 50%;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
 }

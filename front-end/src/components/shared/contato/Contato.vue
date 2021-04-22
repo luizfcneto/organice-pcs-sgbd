@@ -11,7 +11,13 @@
 
         <label for="mensagem">
           Mensagem:
-          <textarea class="input-contato" cols="" rows=""> </textarea>
+          <textarea
+            class="input-contato"
+            cols=""
+            rows=""
+            placeholder="Escreva a sua mensagem..."
+          >
+          </textarea>
         </label>
 
         <button type="submit" class="btn-enviar-msg">Enviar Mensagem</button>
@@ -103,6 +109,10 @@ label {
   color: #ffffff;
   font-weight: bold;
   margin: 0 auto;
+}
+
+.btn-enviar-msg:hover {
+  background-color: #8aae92;
 }
 
 iframe {

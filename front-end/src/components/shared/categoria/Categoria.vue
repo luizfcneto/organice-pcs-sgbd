@@ -1,9 +1,19 @@
 <template>
-  <span class="category-span"> Marcearia </span>
+  <span class="category-span" :id="cor"> {{ nome }} </span>
 </template>
 
 <script>
-export default {};
+export default {
+  props: ["nome", "cor"],
+
+  methods: {
+    setClassColor: function(cor) {
+      let categoryEl = document.querySelector(".category-span");
+      categoryEl.classList.add(cor);
+      console.log(categoryEl);
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -19,8 +29,23 @@ export default {};
   color: #ffffff;
 }
 
-.category-green {
+#green {
   background-color: #8aae92;
+  color: #ffffff;
+}
+
+#brown {
+  background-color: #616161;
+  color: #ffffff;
+}
+
+#yellow {
+  background-color: #f8c957;
+  color: #000000;
+}
+
+#blue {
+  background-color: #7194d1;
   color: #ffffff;
 }
 </style>

@@ -2,11 +2,7 @@
   <div class="header">
     <div class="container-header">
       <a href="/" target="_self">
-        <img
-          class="logo"
-          src="../../../assets/imgs/logo-header.png"
-          alt="logo"
-        />
+        <img class="logo" :src="logo.url" :alt="logo.alt" />
       </a>
       <a class="btn-minha-conta" href="/cadastro"> Minha Conta </a>
     </div>
@@ -14,7 +10,18 @@
 </template>
 
 <script>
-export default {};
+import logo from "../../../assets/imgs/logo-header.png";
+
+export default {
+  data() {
+    return {
+      logo: {
+        url: logo,
+        alt: "logo"
+      }
+    };
+  }
+};
 </script>
 
 <style scoped>
