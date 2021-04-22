@@ -14,7 +14,7 @@ export default {
     return {
       navs: [
         { link: "#", name: "Legumes" },
-        { link: "#", name: "Nossos Produtos" },
+        { link: "nossos-produtos/", name: "Nossos Produtos" },
         { link: "#", name: "Marcenaria" },
         { link: "#", name: "Verduras" },
         { link: "#", name: "Cestas Prontas" },
