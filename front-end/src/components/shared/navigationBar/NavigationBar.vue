@@ -14,7 +14,7 @@ export default {
     return {
       navs: [
         { link: "#", name: "Legumes" },
-        { link: "nossos-produtos/", name: "Nossos Produtos" },
+        { link: "/nossos-produtos/", name: "Nossos Produtos" },
         { link: "#", name: "Marcenaria" },
         { link: "#", name: "Verduras" },
         { link: "#", name: "Cestas Prontas" },
@@ -40,14 +40,14 @@ export default {
 
 .element-link {
   width: auto;
-  margin: 1em 0em;
   text-align: center;
 }
 
 .nav-link {
   text-decoration: none;
   color: #ffffff;
-  padding: 0.7em 0.5em;
+  display: block;
+  padding: 1em 1em;
 }
 
 .nav-link:hover {
@@ -68,17 +68,17 @@ export default {
 
 @media screen and (max-width: 589px) {
   .container-list {
+    width: 100%;
     flex-flow: column;
   }
 
   .element-link {
     width: 100%;
-    margin: 1em 0;
+    /* margin: 1em 0; */
   }
 
   .nav-link {
-    padding-right: 5em;
-    padding-left: 5em;
+    display: block;
   }
 }
 </style>

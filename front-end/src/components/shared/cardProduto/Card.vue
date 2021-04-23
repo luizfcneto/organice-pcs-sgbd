@@ -9,7 +9,16 @@
       <p class="p-description">
         {{ descricao }}
       </p>
-      <Categoria :nome="categoria" :cor="defineColor(nome)" />
+      <Categoria :nome="categoria" :cor="defineColor(categoria)" />
+
+      <div class="preço" v-if="compravel">
+        <p class="p-preco">preço: {{ preco }}</p>
+      </div>
+      <div class="quantidade-produto" v-if="emEstoque">
+        <img :src="iconeMenos" class="icone-menos" />
+        <span class="quantidade"> 0 </span>
+        <img :src="iconeMais" class="icone-mais" />
+      </div>
       <button type="submit" class="btn-comprar">Comprar</button>
     </div>
   </div>
@@ -17,17 +26,31 @@
 
 <script>
 import Categoria from "../categoria/Categoria.vue";
+import IconPlus from "../../../assets/icons/plus-icon.png";
+import IconMinus from "../../../assets/icons/minus-icon.png";
 
 export default {
   components: {
     Categoria
   },
 
-  props: ["nome", "imgSrc", "descricao", "categoria"],
+  props: [
+    "nome",
+    "imgSrc",
+    "descricao",
+    "categoria",
+    "preco",
+    "compravel",
+    "emEstoque"
+  ],
 
   data() {
     return {
-      colors: ["yellow", "green", "brown", "blue"]
+      colors: ["yellow", "green", "brown", "blue"],
+      ehCompravel: this.compravel,
+      estaNoEstoque: this.emEstoque,
+      iconeMais: IconPlus,
+      iconeMenos: IconMinus
     };
   },
 
@@ -91,6 +114,41 @@ img {
 
 .p-description {
   margin: 0.5em auto;
+}
+
+.p-preco {
+  margin: 0.5em auto;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+}
+
+.quantidade-produto {
+  display: flex;
+  width: 80%;
+  margin: 1em auto;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.quantidade {
+  font-size: 16px;
+}
+
+.icone-menos {
+  width: 10%;
+}
+
+.icone-menos:hover {
+  cursor: pointer;
+}
+
+.icone-mais {
+  width: 10%;
+}
+
+.icone-mais:hover {
+  cursor: pointer;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");

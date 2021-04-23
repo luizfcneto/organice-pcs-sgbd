@@ -76,7 +76,7 @@ export default {
           nome: "Cereais & Ovos",
           imgSrc: srcMercearia,
           descricao: "Cesta Grande contendo até 20 cereais e ovos",
-          categoria: "Marcenaria"
+          categoria: "Mercearia"
         }
       ]
     };

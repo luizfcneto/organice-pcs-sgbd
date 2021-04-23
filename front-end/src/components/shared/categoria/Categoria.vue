@@ -48,4 +48,16 @@ export default {
   background-color: #7194d1;
   color: #ffffff;
 }
+
+@media screen and (min-width: 500px) and (max-width: 830px) {
+  .category-span {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 510px) {
+  .category-span {
+    width: 60%;
+  }
+}
 </style>
