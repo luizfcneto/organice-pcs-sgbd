@@ -7,6 +7,7 @@
       <form class="container-cadastro">
         <label for="nome">
           Nome*:
+          <span v-if="!cadastro.nomeValido"> {{ this.erro.nome }} </span>
           <input
             id="nome"
             type="text"
@@ -17,6 +18,7 @@
 
         <label for="celular">
           Celular*:
+          <span v-if="!cadastro.celularValido"> </span>
           <input
             id="celular"
             type="text"
@@ -118,6 +120,15 @@
 import Header from "../../shared/header/Header.vue";
 import NavigationBar from "../../shared/navigationBar/NavigationBar.vue";
 import Footer from "../../shared/footer/Footer.vue";
+import {
+  validateNome,
+  validateCelular,
+  validateEmail,
+  validateSenha,
+  validateConfirmarSenha,
+  validateEndereco,
+  validateLogin
+} from "../../../utils/validations.js";
 
 export default {
   components: {
@@ -130,131 +141,85 @@ export default {
     return {
       cadastro: {
         nome: "",
+        nomeValido: true,
+        celular: "",
+        celularValido: true,
+        email: "",
+        emailValido: true,
+        senha: "",
+        senhaValida: true,
+        confirmarSenha: "",
+        confirmarSenhaValida: true,
+        endereco: "",
+        enderecoValido: true
+      },
+      login: {
+        email: "",
+        emailValido: true,
+        senha: "",
+        senhaValida: true
+      },
+      erro: {
+        nome: "",
         celular: "",
         email: "",
         senha: "",
         confirmarSenha: "",
         endereco: ""
-      },
-      login: {
-        email: "",
-        senha: ""
       }
     };
   },
 
   methods: {
-    validateNome: function(nome) {
-      let valido = true;
-      if (nome === "" || nome === "undefined" || nome === null) {
-        valido = false;
-        // motrar erro no input de nome, "campo vazio"
-        console.log("nome vazio");
-        return valido;
-      }
-      return valido;
-    },
-
-    validateCelular: function(celular) {
-      let valido = true;
-      if (celular === "" || celular === null || celular === undefined) {
-        valido = false;
-        console.log("celular não preenchido corretamente");
-        // mostrar erro no input de celular, "campo não preenchido"
-        return valido;
-      }
-
-      if (celular.length !== 9) {
-        valido = false;
-        console.log("O celular deve conter 9 números");
-        // mostrar erro no input de celular, "verifique "
-        return valido;
-      }
-
-      const onlyNumbersRegex = new RegExp("^[0-9]*$");
-      let result = celular.match(onlyNumbersRegex);
-      if (result === null) {
-        valido = false;
-        // mostrar erro no input de celular, "digite apenas números"
-        console.log("Digite apenas números");
-        return valido;
-      }
-      return valido;
-    },
-
-    validateEmail: function(email) {
-      let valido = true;
-
-      if (email === undefined || email === "" || email === null) {
-        valido = false;
-        // mostrar erro no input de email, "campo vazio"
-        console.log("Email é obrigatório");
-        return valido;
-      } else {
-        let checkArroba = email.trim().split("@");
-        if (checkArroba.length > 2) {
-          valido = false;
-          console.log("email sem @");
-          // mostrar erro no input de email, sem "@"
-        }
-        return valido;
-      }
-    },
-
-    validateSenha: function(senha) {
-      let valido = true;
-      if (senha === undefined || senha === "" || senha === null) {
-        valido = false;
-        // mostrar erro no input da senha, "campo vazio"
-        console.log("Senha é obrigatória");
-      }
-      return valido;
-    },
-
-    validateConfirmarSenha: function(confirmarSenha, senha) {
-      let valido = true;
-      if (
-        confirmarSenha === undefined ||
-        confirmarSenha === "" ||
-        confirmarSenha === null
-      ) {
-        valido = false;
-        // mostrar erro no input de confirmar senha, "campo vazio"
-        console.log("Confirma Senha é obrigatório");
-        return valido;
-      }
-
-      if (confirmarSenha !== senha) {
-        valido = false;
-        // mostrar erro no input de confirmar senha, "Senhas não coincidem"
-        console.log("Senhas não coincidem");
-      }
-
-      return valido;
-    },
-
-    validateEndereco: function(endereco) {
-      let valido = true;
-      if (endereco === null || endereco === "" || endereco === undefined) {
-        valido = false;
-        // mostrar erro no input de endereço, "Endereço é Obrigatório"
-        console.log("Endereço é obrigatório");
-      }
-      return valido;
-    },
+    validateNome: validateNome,
+    validateCelular: validateCelular,
+    validateEmail: validateEmail,
+    validateSenha: validateSenha,
+    validateConfirmarSenha: validateConfirmarSenha,
+    validateEndereco: validateEndereco,
 
     validateCadastro: function(event) {
       event.preventDefault();
 
       let nomeValido = this.validateNome(this.cadastro.nome);
+      if (!nomeValido.valido) {
+        this.setCadastroNomeValido();
+        this.setErroNome(nomeValido.msg);
+      }
+
       let celularValido = this.validateCelular(this.cadastro.celular);
+      if (!celularValido.valido) {
+        this.setCadastroCelularValido();
+        this.setErroCelular(celularValido.msg);
+      }
+
       let emailValido = this.validateEmail(this.cadastro.email);
+      if (!emailValido.valido) {
+        this.setCadastroEmailValido();
+        this.setErroEmail(emailValido.msg);
+      }
+
       let senhaValida = this.validateSenha(this.cadastro.senha);
+      if (!senhaValida.valido) {
+        this.setCadastroSenhaValido();
+        this.setErroSenha(senhaValida.msg);
+      }
+
       let confirmaSenhaValida = this.validateConfirmarSenha(
         this.cadastro.confirmarSenha,
         this.cadastro.senha
       );
+
+      if (!confirmaSenhaValida.valido) {
+        this.setCadastroConfirmaSenhaValido();
+        this.setErroConfirmarSenha(confirmaSenhaValida.msg);
+      }
+
       let enderecoValido = this.validateEndereco(this.cadastro.endereco);
+      if (!enderecoValido.valido) {
+        this.setCadastroEnderecoValido();
+        this.setErroEndereco(enderecoValido.msg);
+      }
 
       console.log(
         this.cadastro,
@@ -285,12 +250,60 @@ export default {
       this.cadastro.endereco = event.target.value;
     },
 
-    validateLogin: function(event) {},
+    setCadastroNomeValido: function() {
+      this.cadastro.nomeValido = !this.cadastro.nomeValido;
+    },
+    setCadastroCelularValido: function() {
+      this.cadastro.celularValido = !this.cadastro.celularValido;
+    },
+    setCadastroEmailValido: function() {
+      this.cadastro.emailValido = !this.cadastro.emailValido;
+    },
+    setCadastroSenhaValido: function() {
+      this.cadastro.senhaValido = !this.cadastro.senhaValido;
+    },
+    setCadastroConfirmaSenhaValido: function() {
+      this.cadastro.confirmarSenhaValido = !this.cadastro.ConfirmarSenhaValido;
+    },
+    setCadastroEnderecoValido: function() {
+      this.cadastro.enderecoValido = !this.cadastro.enderecoValido;
+    },
+
+    setErroNome: function(msg) {
+      this.erro.nome = msg;
+    },
+    setErroCelular: function(msg) {
+      this.erro.celular = msg;
+    },
+    setErroEmail: function(msg) {
+      this.erro.email = msg;
+    },
+    setErroSenha: function(msg) {
+      this.erro.senha = msg;
+    },
+    setErroConfirmarSenha: function(msg) {
+      this.erro.confirmarSenha = msg;
+    },
+    setErroEndereco: function(msg) {
+      this.erro.endereco = msg;
+    },
+
+    validateLogin: validateLogin,
+
     setLoginEmail: function(event) {
       this.login.email = event.target.value;
     },
+
+    setLoginEmailValido: function() {
+      this.login.emailValido = !this.login.emailValido;
+    },
+
     setLoginSenha: function(event) {
       this.login.senha = event.target.value;
+    },
+
+    setLoginSenhaValida: function() {
+      this.login.senhaValida = !this.login.senhaValida;
     }
 
     // Post para verificar se o email do cliente já foi cadastrado
