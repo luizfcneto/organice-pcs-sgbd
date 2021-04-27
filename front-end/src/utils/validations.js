@@ -37,17 +37,25 @@ export const validateEmail = email => {
 
   if (email === undefined || email === "" || email === null) {
     valido = false;
-    let msg = "Email é obrigatório!";
+    let msg = "Email é obrigatório";
     return { valido, msg };
-  } else {
-    let checkArroba = email.trim().split("@");
-    if (checkArroba.length > 2) {
-      valido = false;
-      let msg = "Email sem @";
-      return { valido, msg };
-    }
-    return valido;
   }
+
+  let checkArroba = email.trim().split("@");
+  console.log(checkArroba);
+  if (checkArroba.length === 1) {
+    valido = false;
+    let msg = "Email sem @";
+    return { valido, msg };
+  }
+
+  if (checkArroba.length > 2) {
+    valido = false;
+    let msg = "Exceço de @'s?";
+    return { valido, msg };
+  }
+
+  return valido;
 };
 
 export const validateSenha = senha => {
@@ -86,16 +94,6 @@ export const validateEndereco = endereco => {
   if (endereco === null || endereco === "" || endereco === undefined) {
     valido = false;
     let msg = "Endereço é obrigatório";
-    return { valido, msg };
-  }
-  return valido;
-};
-
-export const validateLogin = login => {
-  let valido = true;
-  if ((login === null || login === "", login === undefined)) {
-    valido = false;
-    let msg = "login é obrigatório";
     return { valido, msg };
   }
   return valido;

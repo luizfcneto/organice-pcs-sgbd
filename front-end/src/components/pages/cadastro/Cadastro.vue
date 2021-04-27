@@ -7,7 +7,9 @@
       <form class="container-cadastro">
         <label for="nome">
           Nome*:
-          <span v-if="!cadastro.nomeValido"> {{ this.erro.nome }} </span>
+          <span class="error" v-if="!cadastro.nomeValido">
+            {{ this.erro.nome }}
+          </span>
           <input
             id="nome"
             type="text"
@@ -18,7 +20,9 @@
 
         <label for="celular">
           Celular*:
-          <span v-if="!cadastro.celularValido"> </span>
+          <span class="error" v-if="!cadastro.celularValido">
+            {{ this.erro.celular }}
+          </span>
           <input
             id="celular"
             type="text"
@@ -29,6 +33,9 @@
 
         <label for="email">
           Email*:
+          <span class="error" v-if="!cadastro.emailValido">
+            {{ this.erro.email }}
+          </span>
           <input
             id="email"
             type="email"
@@ -39,6 +46,9 @@
 
         <label for="senha">
           Senha*:
+          <span class="error" v-if="!cadastro.senhaValida">
+            {{ this.erro.senha }}
+          </span>
           <input
             id="senha"
             type="password"
@@ -49,6 +59,9 @@
 
         <label id="label-confirmar-senha" for="confirmarSenha">
           Confirmar Senha*:
+          <span class="error" v-if="!cadastro.confirmarSenhaValida">
+            {{ this.erro.confirmarSenha }}
+          </span>
           <input
             id="confirmarSenha"
             type="password"
@@ -59,6 +72,9 @@
 
         <label id="label-endereco" for="endereco">
           Endereço*:
+          <span class="error" v-if="!cadastro.enderecoValido">
+            {{ this.erro.endereco }}
+          </span>
           <input
             id="endereco"
             type="text"
@@ -83,6 +99,9 @@
       <form class="container-login">
         <label for="emailLogin">
           Email*:
+          <span class="error" v-if="!login.emailValido">
+            {{ this.erro.email }}
+          </span>
           <input
             id="emailLogin"
             type="text"
@@ -93,6 +112,9 @@
 
         <label for="senhaLogin">
           Senha*:
+          <span class="error" v-if="!login.senhaValida">
+            {{ this.erro.senha }}
+          </span>
           <input
             id="senhaLogin"
             type="password"
@@ -178,59 +200,19 @@ export default {
     validateConfirmarSenha: validateConfirmarSenha,
     validateEndereco: validateEndereco,
 
-    validateCadastro: function(event) {
-      event.preventDefault();
+    setAllErrosTrue: function() {
+      this.cadastro.nomeValido = true;
+      this.cadastro.celularValido = true;
+      this.cadastro.emailValido = true;
+      this.cadastro.senhaValida = true;
+      this.cadastro.confirmarSenhaValida = true;
+      this.cadastro.enderecoValido = true;
+      this.cadastro.nomeValido = true;
 
-      let nomeValido = this.validateNome(this.cadastro.nome);
-      if (!nomeValido.valido) {
-        this.setCadastroNomeValido();
-        this.setErroNome(nomeValido.msg);
-      }
-
-      let celularValido = this.validateCelular(this.cadastro.celular);
-      if (!celularValido.valido) {
-        this.setCadastroCelularValido();
-        this.setErroCelular(celularValido.msg);
-      }
-
-      let emailValido = this.validateEmail(this.cadastro.email);
-      if (!emailValido.valido) {
-        this.setCadastroEmailValido();
-        this.setErroEmail(emailValido.msg);
-      }
-
-      let senhaValida = this.validateSenha(this.cadastro.senha);
-      if (!senhaValida.valido) {
-        this.setCadastroSenhaValido();
-        this.setErroSenha(senhaValida.msg);
-      }
-
-      let confirmaSenhaValida = this.validateConfirmarSenha(
-        this.cadastro.confirmarSenha,
-        this.cadastro.senha
-      );
-
-      if (!confirmaSenhaValida.valido) {
-        this.setCadastroConfirmaSenhaValido();
-        this.setErroConfirmarSenha(confirmaSenhaValida.msg);
-      }
-
-      let enderecoValido = this.validateEndereco(this.cadastro.endereco);
-      if (!enderecoValido.valido) {
-        this.setCadastroEnderecoValido();
-        this.setErroEndereco(enderecoValido.msg);
-      }
-
-      console.log(
-        this.cadastro,
-        nomeValido,
-        celularValido,
-        emailValido,
-        senhaValida,
-        confirmaSenhaValida,
-        enderecoValido
-      );
+      this.login.emailValido = true;
+      this.login.senhaValida = true;
     },
+
     setCadastroNome: function(event) {
       this.cadastro.nome = event.target.value;
     },
@@ -259,11 +241,11 @@ export default {
     setCadastroEmailValido: function() {
       this.cadastro.emailValido = !this.cadastro.emailValido;
     },
-    setCadastroSenhaValido: function() {
-      this.cadastro.senhaValido = !this.cadastro.senhaValido;
+    setCadastroSenhaValida: function() {
+      this.cadastro.senhaValida = !this.cadastro.senhaValida;
     },
-    setCadastroConfirmaSenhaValido: function() {
-      this.cadastro.confirmarSenhaValido = !this.cadastro.ConfirmarSenhaValido;
+    setCadastroConfirmaSenhaValida: function() {
+      this.cadastro.confirmarSenhaValida = !this.cadastro.confirmarSenhaValida;
     },
     setCadastroEnderecoValido: function() {
       this.cadastro.enderecoValido = !this.cadastro.enderecoValido;
@@ -288,8 +270,6 @@ export default {
       this.erro.endereco = msg;
     },
 
-    validateLogin: validateLogin,
-
     setLoginEmail: function(event) {
       this.login.email = event.target.value;
     },
@@ -304,6 +284,82 @@ export default {
 
     setLoginSenhaValida: function() {
       this.login.senhaValida = !this.login.senhaValida;
+    },
+
+    validateCadastro: function(event) {
+      event.preventDefault();
+      this.setAllErrosTrue();
+      let nomeValido = this.validateNome(this.cadastro.nome);
+      if (!nomeValido.valido) {
+        this.setCadastroNomeValido();
+        this.setErroNome(nomeValido.msg);
+      }
+
+      let celularValido = this.validateCelular(this.cadastro.celular);
+      if (!celularValido.valido) {
+        this.setCadastroCelularValido();
+        this.setErroCelular(celularValido.msg);
+      }
+
+      let emailValido = this.validateEmail(this.cadastro.email);
+      if (!emailValido.valido) {
+        this.setCadastroEmailValido();
+        this.setErroEmail(emailValido.msg);
+      }
+
+      let senhaValida = this.validateSenha(this.cadastro.senha);
+      if (!senhaValida.valido) {
+        this.setCadastroSenhaValida();
+        this.setErroSenha(senhaValida.msg);
+      }
+
+      let confirmaSenhaValida = this.validateConfirmarSenha(
+        this.cadastro.confirmarSenha,
+        this.cadastro.senha
+      );
+
+      if (!confirmaSenhaValida.valido) {
+        this.setCadastroConfirmaSenhaValida();
+        this.setErroConfirmarSenha(confirmaSenhaValida.msg);
+      }
+
+      let enderecoValido = this.validateEndereco(this.cadastro.endereco);
+      if (!enderecoValido.valido) {
+        this.setCadastroEnderecoValido();
+        this.setErroEndereco(enderecoValido.msg);
+      }
+
+      if (
+        nomeValido &&
+        celularValido &&
+        senhaValida &&
+        confirmaSenhaValida &&
+        enderecoValido
+      ) {
+        // post para verificar se o email do cliente ja foi cadastrado
+        // post para fazer cadastro do visitante
+      }
+    },
+
+    validateLogin: function(event) {
+      event.preventDefault();
+      this.setAllErrosTrue();
+
+      let emailValido = this.validateEmail(this.login.email);
+      if (!emailValido.valido) {
+        this.setLoginEmailValido();
+        this.setErroEmail(emailValido.msg);
+      }
+
+      let senhaValida = this.validateSenha(this.login.senha);
+      if (!senhaValida.valido) {
+        this.setLoginSenhaValida();
+        this.setErroSenha(senhaValida.msg);
+      }
+
+      if (emailValido && senhaValida) {
+        // post para verificar se email e senha estão iguais aos registrados no banco
+      }
     }
 
     // Post para verificar se o email do cliente já foi cadastrado
@@ -344,6 +400,11 @@ export default {
   margin: 0 auto;
   display: flex;
   flex-flow: column;
+}
+
+.error {
+  color: #f05945;
+  font-size: 14px;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
