@@ -188,7 +188,13 @@ export default {
         senha: "",
         confirmarSenha: "",
         endereco: ""
-      }
+      },
+      msgCadastroMalSucedido: "Aconteceu algum problema interno!",
+      msgCadastroBemSucedido:
+        "Cadastro bem sucedido, preencha formulário de login!",
+      urlRealizaCadastro: "",
+      urlRealizaLogin: "",
+      msgLoginMalSucedido: ""
     };
   },
 
@@ -336,8 +342,8 @@ export default {
         confirmaSenhaValida &&
         enderecoValido
       ) {
-        // post para verificar se o email do cliente ja foi cadastrado
         // post para fazer cadastro do visitante
+        this.fazCadastro();
       }
     },
 
@@ -359,14 +365,54 @@ export default {
 
       if (emailValido && senhaValida) {
         // post para verificar se email e senha estão iguais aos registrados no banco
+        this.fazLogin();
       }
-    }
-
-    // Post para verificar se o email do cliente já foi cadastrado
+    },
 
     // Post para fazer cadastro do visitante
+    fazCadastro: async function() {
+      let body = {
+        nome: this.cadastro.senha,
+        celular: this.cadastro.celular,
+        email: this.cadastro.email,
+        senha: this.cadastro.senha,
+        endereco: this.cadastro.endereco
+      };
+
+      try {
+        const response = await fetch(this.urlRealizaCadastro, {
+          method: "POST",
+          body: JSON.stringify(body)
+        });
+
+        if (response.status < 200 || response.status > 299) {
+          throw new Error();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
     // Post para verificar se email e senha estão iguais aos registrados no banco
+    fazLogin: async function() {
+      let body = {
+        email: this.login.email,
+        senha: this.login.senha
+      };
+
+      try {
+        const response = await fetch(this.urlRealizaLogin, {
+          method: "POST",
+          body: JSON.stringfy(body)
+        });
+
+        if (response.status < 200 || response.status > 299) {
+          throw new Error();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
 };
 </script>
