@@ -1,10 +1,10 @@
-import "express";
-import "./postgres/conector";
+import express from "express";
+import Sequela from "./postgres/conector.js";
+import dotenv from "dotenv";
 
+dotenv.config();
 
-const user = require('./user/user');
-
-
+console.log(process.env.PGUSER);
 try {
   await Sequela.authenticate();
   console.log('Connection has been established successfully.');
@@ -19,4 +19,4 @@ app.listen(3000, () => {
   console.log(`Welcome to OrgaNice`);
 });
 
-app.use('/user', user)
+
