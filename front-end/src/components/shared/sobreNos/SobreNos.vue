@@ -1,5 +1,5 @@
 <template>
-  <section class="sobre-nos">
+  <section id="sobre-nos" class="sobre-nos">
     <h2 class="titulo-centralizado">Sobre a OrgaNice</h2>
     <div class="container-sobre">
       <img

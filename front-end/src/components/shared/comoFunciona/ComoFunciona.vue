@@ -1,5 +1,5 @@
 <template>
-  <section class="como-funciona">
+  <section id="como-funciona" class="como-funciona">
     <h2 class="titulo-centralizado">Como Funciona</h2>
     <div class="container-line">
       <div class="container-column">

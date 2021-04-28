@@ -1,5 +1,5 @@
 <template>
-  <section class="contato">
+  <section id="contato" class="contato">
     <h2 class="titulo-centralizado">Dúvidas? Entre Contato Conosco</h2>
 
     <div class="container-contato">

@@ -13,12 +13,12 @@ export default {
   data() {
     return {
       navs: [
-        { link: "#", name: "Legumes" },
+        { link: "/#assinatura", name: "Assinaturas" },
         { link: "/nossos-produtos/", name: "Nossos Produtos" },
-        { link: "#", name: "Marcenaria" },
-        { link: "#", name: "Verduras" },
-        { link: "#", name: "Cestas Prontas" },
-        { link: "#", name: "Frutas" }
+        { link: "/#como-funciona", name: "Como Funciona" },
+        { link: "/#cestas-prontas", name: "Cestas Prontas" },
+        { link: "/#sobre-nos", name: "Sobre Nós" },
+        { link: "/#contato", name: "Contato" }
       ]
     };
   }
@@ -56,7 +56,7 @@ export default {
 
 @media screen and (min-width: 740px) and (max-width: 1010px) {
   .container-list {
-    width: 80%;
+    width: 100%;
   }
 }
 

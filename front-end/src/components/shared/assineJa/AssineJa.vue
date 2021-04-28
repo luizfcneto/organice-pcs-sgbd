@@ -1,5 +1,5 @@
 <template>
-  <section class="assine-section">
+  <section id="assinatura" class="assine-section">
     <div class="container-assine">
       <img
         class="figure-assine"

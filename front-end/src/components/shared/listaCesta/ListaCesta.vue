@@ -1,5 +1,5 @@
 <template>
-  <section class="cestas-prontas">
+  <section id="cestas-prontas" class="cestas-prontas">
     <h2 class="titulo-centralizado">Cestas Prontas</h2>
     <div class="container-lista-cards">
       <Card
