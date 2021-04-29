@@ -11,6 +11,7 @@
             {{ this.erro.nome }}
           </span>
           <input
+            class="input-cadastro"
             id="nome"
             type="text"
             v-on:input="setCadastroNome($event)"
@@ -24,6 +25,7 @@
             {{ this.erro.celular }}
           </span>
           <input
+            class="input-cadastro"
             id="celular"
             type="text"
             v-on:input="setCadastroCelular($event)"
@@ -37,6 +39,7 @@
             {{ this.erro.email }}
           </span>
           <input
+            class="input-cadastro"
             id="email"
             type="email"
             v-on:input="setCadastroEmail($event)"
@@ -46,10 +49,16 @@
 
         <label for="senha">
           Senha*:
+          <font-awesome-icon
+            :icon="eye"
+            v-on:click.prevent="showPassword($event)"
+          />
           <span class="error" v-if="!cadastro.senhaValida">
             {{ this.erro.senha }}
           </span>
+
           <input
+            class="input-cadastro"
             id="senha"
             type="password"
             v-on:input="setCadastroSenha($event)"
@@ -59,10 +68,15 @@
 
         <label id="label-confirmar-senha" for="confirmarSenha">
           Confirmar Senha*:
+          <font-awesome-icon
+            :icon="eye"
+            v-on:click.prevent="showPassword($event)"
+          />
           <span class="error" v-if="!cadastro.confirmarSenhaValida">
             {{ this.erro.confirmarSenha }}
           </span>
           <input
+            class="input-cadastro"
             id="confirmarSenha"
             type="password"
             v-on:input="setCadastroConfirmaSenha($event)"
@@ -76,6 +90,7 @@
             {{ this.erro.endereco }}
           </span>
           <input
+            class="input-cadastro"
             id="endereco"
             type="text"
             v-on:input="setCadastroEndereco($event)"
@@ -103,6 +118,7 @@
             {{ this.erro.email }}
           </span>
           <input
+            class="input-login"
             id="emailLogin"
             type="text"
             v-on:input="setLoginEmail($event)"
@@ -115,7 +131,12 @@
           <span class="error" v-if="!login.senhaValida">
             {{ this.erro.senha }}
           </span>
+          <font-awesome-icon
+            :icon="eye"
+            v-on:click.prevent="showPassword($event)"
+          />
           <input
+            class="input-login"
             id="senhaLogin"
             type="password"
             v-on:input="setLoginSenha($event)"
@@ -152,11 +173,19 @@ import {
   validateLogin
 } from "../../../utils/validations.js";
 
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+
 export default {
   components: {
     Header,
     NavigationBar,
     Footer
+  },
+
+  computed: {
+    eye() {
+      return faEye;
+    }
   },
 
   data() {
@@ -292,6 +321,22 @@ export default {
       this.login.senhaValida = !this.login.senhaValida;
     },
 
+    showPassword: function(event) {
+      let target = event.target;
+      let input;
+      if (target.parentElement.childElementCount === 1) {
+        input = target.parentElement.parentElement.lastChild;
+      } else {
+        input = target.parentElement.lastChild;
+      }
+
+      if (input.type === "password") {
+        input.type = "text";
+      } else {
+        input.type = "password";
+      }
+    },
+
     validateCadastro: function(event) {
       event.preventDefault();
       this.setAllErrosTrue();
@@ -336,11 +381,11 @@ export default {
       }
 
       if (
-        nomeValido &&
-        celularValido &&
-        senhaValida &&
-        confirmaSenhaValida &&
-        enderecoValido
+        nomeValido.valido &&
+        celularValido.valido &&
+        senhaValida.valido &&
+        confirmaSenhaValida.valido &&
+        enderecoValido.valido
       ) {
         // post para fazer cadastro do visitante
         this.fazCadastro();
@@ -363,7 +408,7 @@ export default {
         this.setErroSenha(senhaValida.msg);
       }
 
-      if (emailValido && senhaValida) {
+      if (emailValido.valido && senhaValida.valido) {
         // post para verificar se email e senha estão iguais aos registrados no banco
         this.fazLogin();
       }
@@ -454,7 +499,8 @@ export default {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
-input {
+.input-cadastro,
+.input-login {
   font-family: "Tillana", Arial, Helvetica, sans-serif;
   margin: 1em;
   padding: 0.5em 0.5em;
@@ -464,7 +510,7 @@ input {
   border-style: solid;
 }
 
-input:active {
+.input-cadastro:active {
   border-color: #8aae92;
   border-radius: 5px;
   border-style: solid;
