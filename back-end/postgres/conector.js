@@ -2,10 +2,10 @@ import Sequelize from 'sequelize';
 
 const Sequela = new Sequelize({
     dialect: "postgres",
-    user: "postgres",
+    user: process.env.PGUSER,
     host: process.env.PGHOST,
     database: process.env.PGDATABASE,
-    password: "admin",
+    password: process.env.PGPASSWORD,
     port: process.env.PGPORT,
 });
 
