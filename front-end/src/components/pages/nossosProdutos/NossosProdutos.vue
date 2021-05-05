@@ -1,7 +1,5 @@
 <template>
   <div class="nossos-produtos">
-    <Header />
-    <NavigationBar />
     <div class="header-busca">
       <h1 class="titulo-esquerda">Nossos Produtos:</h1>
       <Busca />
@@ -11,7 +9,6 @@
       <AsideBarCategorias :categorias="categorias" />
       <ListaProdutos />
     </main>
-    <Footer />
   </div>
 </template>
 
@@ -24,6 +21,8 @@ import AsideCategorias from "../../shared/asideCategorias/AsideCategorias.vue";
 import Footer from "../../shared/footer/Footer.vue";
 
 export default {
+  props: ["auth", "user"],
+
   components: {
     Header,
     NavigationBar,

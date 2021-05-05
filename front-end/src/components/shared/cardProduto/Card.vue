@@ -19,19 +19,25 @@
         <span class="quantidade"> 0 </span>
         <img :src="iconeMais" class="icone-mais" />
       </div>
-      <button type="submit" class="btn-comprar">Comprar</button>
+
+      <div class="container-btn">
+        <Botao type="submit" estilo="btn-sm" valor="Comprar" />
+      </div>
+      <!-- <button type="submit" class="btn-comprar">Comprar</button> -->
     </div>
   </div>
 </template>
 
 <script>
 import Categoria from "../categoria/Categoria.vue";
+import Botao from "../botao/Botao.vue";
 import IconPlus from "../../../assets/icons/plus-icon.png";
 import IconMinus from "../../../assets/icons/minus-icon.png";
 
 export default {
   components: {
-    Categoria
+    Categoria,
+    Botao
   },
 
   props: [
@@ -151,23 +157,14 @@ img {
   cursor: pointer;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
-.btn-comprar {
-  width: 50%;
-  padding: 0.2em 0.5em;
-  margin: 0.5em auto 1.5em auto;
-  font-family: "Tillana", Arial, Helvetica, sans-serif;
-  border-color: #8aae92;
-  color: #000000;
-  border-width: 1px;
-  border-radius: 5px;
-  cursor: pointer;
+.container-btn {
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  margin: 0 auto;
 }
 
-.btn-comprar:hover {
-  color: #ffffff;
-  background-color: #8aae92;
-}
+@import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
 
 @media screen and (min-width: 500px) and (max-width: 830px) {
   .card {

@@ -1,7 +1,5 @@
 <template>
   <div class="">
-    <Header />
-    <NavigationBar />
     <div class="cadastro">
       <h2 class="titulo-centralizado">Cadastro:</h2>
       <form class="container-cadastro">
@@ -99,13 +97,12 @@
         </label>
 
         <div class="container-btn">
-          <button
-            class="btn-form"
-            v-on:click.prevent="validateCadastro($event)"
+          <Botao
             type="submit"
-          >
-            Cadastrar
-          </button>
+            estilo="btn-form"
+            valor="Cadastrar"
+            @click.prevent="fazCadastro($event)"
+          />
         </div>
       </form>
 
@@ -145,23 +142,22 @@
         </label>
         <a href="#"> esqueci minha senha </a>
         <div class="container-btn">
-          <button
-            class="btn-form"
-            v-on:click.prevent="validateLogin($event)"
+          <Botao
             type="submit"
-          >
-            Login
-          </button>
+            estilo="btn-form"
+            valor="Login"
+            @click.prevent="fazLogin($event)"
+          />
         </div>
       </form>
     </div>
-    <Footer />
   </div>
 </template>
 
 <script>
 import Header from "../../shared/header/Header.vue";
 import NavigationBar from "../../shared/navigationBar/NavigationBar.vue";
+import Botao from "../../shared/botao/Botao.vue";
 import Footer from "../../shared/footer/Footer.vue";
 import {
   validateNome,
@@ -176,9 +172,12 @@ import {
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
 export default {
+  props: ["auth"],
+
   components: {
     Header,
     NavigationBar,
+    Botao,
     Footer
   },
 
@@ -561,11 +560,6 @@ a {
     width: 30%;
   }
 
-  .btn-form {
-    width: 20%;
-    padding: 0.5em 0em;
-  }
-
   .container-cadastro input {
     width: 80%;
   }
@@ -589,11 +583,6 @@ a {
   }
   .container-login {
     width: 60%;
-  }
-
-  .btn-form {
-    width: 30%;
-    padding: 0.5em 0em;
   }
 
   .container-cadastro input {

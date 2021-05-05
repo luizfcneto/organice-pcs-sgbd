@@ -1,84 +1,82 @@
 <template>
-  <div class="">
-    <Header />
-    <NavigationBar />
-    <div class="perfil">
-      <h2 class="titulo-centralizado">Meus Dados:</h2>
-      <form class="container-perfil">
-        <fieldset>
-          <legend>Dados Pessoais:</legend>
+  <div class="perfil">
+    <h2 class="titulo-centralizado">Meus Dados:</h2>
+    <form class="container-perfil">
+      <fieldset>
+        <legend>Dados Pessoais:</legend>
 
-          <label for="nome">
-            Nome*:
-            <span class="error"> </span>
-            <input id="nome" type="text" value="" />
-          </label>
+        <label for="nome">
+          Nome*:
+          <span class="error"> </span>
+          <input id="nome" type="text" value="" />
+        </label>
 
-          <label for="celular">
-            Celular*:
-            <span class="error"> </span>
-            <input id="celular" type="text" value="" />
-          </label>
+        <label for="celular">
+          Celular*:
+          <span class="error"> </span>
+          <input id="celular" type="text" value="" />
+        </label>
 
-          <label id="label-endereco" for="endereco">
-            Endereço*:
-            <span class="error"> </span>
-            <input id="endereco" type="text" value="" />
-          </label>
-        </fieldset>
+        <label id="label-endereco" for="endereco">
+          Endereço*:
+          <span class="error"> </span>
+          <input id="endereco" type="text" value="" />
+        </label>
+      </fieldset>
 
-        <fieldset>
-          <legend>Dados da Conta:</legend>
+      <fieldset>
+        <legend>Dados da Conta:</legend>
 
-          <label for="email">
-            Email*:
-            <span class="error"> </span>
-            <input id="email" type="email" value="" />
-          </label>
+        <label for="email">
+          Email*:
+          <span class="error"> </span>
+          <input id="email" type="email" value="" />
+        </label>
 
-          <label for="senha">
-            Senha*:
-            <span class="error"> </span>
-            <input id="senha" type="password" />
-          </label>
+        <label for="senha">
+          Senha*:
+          <span class="error"> </span>
+          <input id="senha" type="password" />
+        </label>
 
-          <label for="senhaNova">
-            Senha Nova*:
-            <span class="error"> </span>
-            <input id="senhaNova" type="password" disabled />
-          </label>
+        <label for="senhaNova">
+          Senha Nova*:
+          <span class="error"> </span>
+          <input id="senhaNova" type="password" disabled />
+        </label>
 
-          <label id="label-confirmar-senha" for="confirmarSenhaNova">
-            Confirmar Senha Nova*:
-            <span class="error"> </span>
-            <input id="confirmarSenhaNova" type="password" disabled />
-          </label>
-        </fieldset>
+        <label id="label-confirmar-senha" for="confirmarSenhaNova">
+          Confirmar Senha Nova*:
+          <span class="error"> </span>
+          <input id="confirmarSenhaNova" type="password" disabled />
+        </label>
+      </fieldset>
 
-        <div class="container-btn">
-          <button class="btn-form editar" type="submit">
-            Editar
-          </button>
+      <div class="container-btn">
+        <Botao type="submit" estilo="btn-form" valor="Editar" />
+        <Botao type="submit" estilo="btn-form cancelar" valor="Cancelar" />
 
-          <!-- <button class="btn-form cancelar" type="submit">
+        <!-- <button class="btn-form cancelar" type="submit">
             Cancelar
           </button> -->
-        </div>
-      </form>
-    </div>
-    <Footer />
+      </div>
+    </form>
   </div>
 </template>
 
 <script>
 import Header from "../../shared/header/Header.vue";
+import Botao from "../../shared/botao/Botao.vue";
 import NavigationBar from "../../shared/navigationBar/NavigationBar.vue";
 import Footer from "../../shared/footer/Footer.vue";
 
 export default {
+  props: ["auth", "user"],
+
   components: {
     Header,
     NavigationBar,
+    Botao,
     Footer
   }
 };
@@ -143,20 +141,6 @@ label {
   font-weight: bold;
 }
 
-.btn-form {
-  font-family: "Tillana", Arial, Helvetica, sans-serif;
-  width: 20%;
-  margin: 1.5em;
-  padding: 0.7em 0em;
-  flex-grow: 0;
-
-  font-size: 16px;
-  border-style: solid;
-  border-color: #ffffff;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
 .editar {
   background-color: #8aae92;
   color: #ffffff;
@@ -186,11 +170,6 @@ a {
     flex-flow: column;
   }
 
-  .btn-form {
-    width: 10%;
-    padding: 0.5em 0em;
-  }
-
   .container-cadastro input {
     width: 80%;
   }
@@ -210,11 +189,6 @@ a {
     margin: 2em auto;
     display: flex;
     flex-flow: column;
-  }
-
-  .btn-form {
-    width: 30%;
-    padding: 0.5em 0em;
   }
 
   .container-cadastro input {

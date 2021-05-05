@@ -13,8 +13,8 @@
       </div>
     </div>
 
-    <div class="container-btn-assine">
-      <a class="btn-assine" href="#" target="_self"> Assine já! </a>
+    <div class="container-link-assine">
+      <router-link class="link-assine" to="#"> Assine já! </router-link>
     </div>
   </section>
 </template>
@@ -59,7 +59,7 @@ export default {
   justify-content: space-around;
 }
 
-.container-btn-assine {
+.container-link-assine {
   display: flex;
   width: 70%;
   margin: 0 auto;
@@ -71,7 +71,7 @@ a {
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
-.btn-assine {
+.link-assine {
   margin: 3em 0em;
   padding: 0.5em 2em;
   background-color: #8aae92;

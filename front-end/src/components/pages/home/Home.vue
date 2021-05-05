@@ -1,26 +1,21 @@
 <template>
-  <div class="">
-    <Header />
-    <NavigationBar />
-    <main>
-      <section class="figure-section">
-        <div class="container-figure">
-          <img
-            class="main-figure"
-            src="../../../assets/figures/figure01.jpg"
-            alt="muitas frutas e legumes organizados em cestas"
-          />
-        </div>
-      </section>
+  <main>
+    <section class="figure-section">
+      <div class="container-figure">
+        <img
+          class="main-figure"
+          src="../../../assets/figures/figure01.jpg"
+          alt="muitas frutas e legumes organizados em cestas"
+        />
+      </div>
+    </section>
 
-      <AssineJa />
-      <ComoFunciona />
-      <ListaCesta />
-      <SobreNos />
-      <Contato />
-    </main>
-    <Footer />
-  </div>
+    <AssineJa />
+    <ComoFunciona />
+    <ListaCesta />
+    <SobreNos />
+    <Contato />
+  </main>
 </template>
 
 <script>
@@ -34,6 +29,8 @@ import ListaCesta from "../../shared/listaCesta/ListaCesta.vue";
 import Contato from "../../shared/contato/Contato.vue";
 
 export default {
+  props: ["auth", "user"],
+
   components: {
     Header,
     NavigationBar,
@@ -43,6 +40,17 @@ export default {
     SobreNos,
     Contato,
     Footer
+  },
+
+  data() {
+    return {
+      // 13 chars, 9 chars
+      // user: {
+      //   // 13 chars, 9 chars
+      //   name: "abcdef gh",
+      //   token: "wfjweeje-oioeif1wi-poewmowcopw-omewc"
+      // }
+    };
   }
 };
 </script>

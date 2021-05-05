@@ -1,14 +1,17 @@
 <template>
   <div class="header">
     <div class="container-header">
-      <a href="/" target="_self">
+      <router-link to="/">
         <img class="logo" :src="logo.url" :alt="logo.alt" />
-      </a>
+      </router-link>
 
-      <a v-if="!auth" class="btn-minha-conta" href="/cadastro"> Minha Conta </a>
+      <router-link v-if="!auth" class="btn-minha-conta" to="/cadastro">
+        Minha Conta
+      </router-link>
+
       <div v-if="auth" class="btn-meu-perfil container-dropdown">
         <div class="dropdown-header">
-          Usuário {{ auth }}
+          {{ user }}
           <img
             class="icon-arrow-down"
             :src="iconArrowDown.url"
@@ -19,7 +22,9 @@
         <div class="dropdown-content">
           <ul>
             <li v-for="(option, index) of optionsDropDown" :key="index">
-              <a class="nav-link" :href="option.url"> {{ option.titulo }} </a>
+              <router-link class="nav-link" :to="option.url">
+                {{ option.titulo }}
+              </router-link>
             </li>
           </ul>
         </div>
@@ -33,7 +38,7 @@ import logo from "../../../assets/imgs/logo-header.png";
 import iconArrowDown from "../../../assets/icons/icon-arrow-down.png";
 
 export default {
-  props: ["auth"],
+  props: ["auth", "user"],
 
   data() {
     return {

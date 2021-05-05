@@ -2,7 +2,17 @@
   <div class="nav-list">
     <ul class="container-list">
       <li class="element-link" v-for="(nav, index) of navs" :key="index">
-        <a class="nav-link" :href="nav.link" target="_self"> {{ nav.name }} </a>
+        <router-link class="nav-link" :to="nav.link" v-if="nav.external">
+          {{ nav.name }}
+        </router-link>
+        <a
+          class="nav-link"
+          :href="nav.link"
+          target="_self"
+          v-if="nav.external === false"
+        >
+          {{ nav.name }}
+        </a>
       </li>
     </ul>
   </div>
@@ -13,12 +23,12 @@ export default {
   data() {
     return {
       navs: [
-        { link: "/#assinatura", name: "Assinaturas" },
-        { link: "/nossos-produtos/", name: "Nossos Produtos" },
-        { link: "/#como-funciona", name: "Como Funciona" },
-        { link: "/#cestas-prontas", name: "Cestas Prontas" },
-        { link: "/#sobre-nos", name: "Sobre Nós" },
-        { link: "/#contato", name: "Contato" }
+        { link: "/#assinatura", name: "Assinaturas", external: false },
+        { link: "/nossos-produtos/", name: "Nossos Produtos", external: true },
+        { link: "/#como-funciona", name: "Como Funciona", external: false },
+        { link: "/#cestas-prontas", name: "Cestas Prontas", external: false },
+        { link: "/#sobre-nos", name: "Sobre Nós", external: false },
+        { link: "/#contato", name: "Contato", external: false }
       ]
     };
   }
@@ -31,7 +41,7 @@ export default {
 }
 
 .container-list {
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
   display: flex;
   justify-content: space-around;

@@ -20,7 +20,10 @@
           </textarea>
         </label>
 
-        <button type="submit" class="btn-enviar-msg">Enviar Mensagem</button>
+        <div class="container-btn">
+          <Botao type="type" estilo="btn-enviar-msg" valor="Enviar Mensagem" />
+        </div>
+        <!-- <button type="submit" class="btn-enviar-msg">Enviar Mensagem</button> -->
       </form>
 
       <div class="map">
@@ -40,7 +43,13 @@
 </template>
 
 <script>
-export default {};
+import Botao from "../botao/Botao.vue";
+
+export default {
+  components: {
+    Botao
+  }
+};
 </script>
 
 <style scoped>
@@ -79,6 +88,13 @@ label {
   margin: 0.5em 0em 0.5em 0em;
 }
 
+.container-btn {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Tillana:wght@500&display=swap");
 .input-contato {
   font-family: "Tillana", Arial, Helvetica, sans-serif;
@@ -90,29 +106,6 @@ label {
   border-style: solid;
   border-width: 2px;
   border-radius: 5px;
-}
-
-.input-contato:focus {
-  border-color: #8aae92;
-}
-
-.btn-enviar-msg {
-  font-family: "Tillana", Arial, Helvetica, sans-serif;
-  width: 60%;
-  padding: 0.5em 1em;
-  cursor: pointer;
-  background-color: #c4e3cb;
-  border-color: #ffffff;
-  border-style: solid;
-  border-width: 2px;
-  border-radius: 5px;
-  color: #ffffff;
-  font-weight: bold;
-  margin: 0 auto;
-}
-
-.btn-enviar-msg:hover {
-  background-color: #8aae92;
 }
 
 iframe {
@@ -159,6 +152,12 @@ label {
   p {
     margin: 0em 0em 1em 0em;
   }
+
+  .container-btn {
+    display: flex;
+    margin: 0 auto;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 830px) {
@@ -177,11 +176,6 @@ label {
   .input-contato {
     width: 100%;
     margin: 1em auto;
-  }
-
-  .btn-enviar-msg {
-    width: 50%;
-    margin: 0 auto;
   }
 
   p {

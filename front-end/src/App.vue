@@ -1,14 +1,28 @@
 <template>
   <div id="app">
+    <Header :auth="false" :user="user" />
+    <NavigationBar />
     <router-view> </router-view>
+    <Footer />
   </div>
 </template>
 
 <script>
+import Header from "./components/shared/header/Header.vue";
+import NavigationBar from "./components/shared/navigationBar/NavigationBar.vue";
+import Footer from "./components/shared/footer/Footer.vue";
+
 export default {
   name: "app",
   data() {
-    return {};
+    return {
+      user: "Exemplo"
+    };
+  },
+  components: {
+    Header,
+    NavigationBar,
+    Footer
   }
 };
 </script>
