@@ -2,11 +2,23 @@
   <section id="contato" class="contato">
     <h2 class="titulo-centralizado">Dúvidas? Entre Contato Conosco</h2>
 
+    <AlertResponse
+      v-show="resposta.mensagem"
+      :status="resposta.class"
+      :mensagem="resposta.mensagem"
+      class="margin-bottom-2"
+    />
+
     <div class="container-contato">
-      <form class="container-form">
+      <form class="container-form" @submit.prevent="enviarMensagem()">
         <label for="email">
           Email:
-          <input class="input-contato" type="text" placeholder="Email..." />
+          <input
+            class="input-contato"
+            v-model="contato.email"
+            type="text"
+            placeholder="Email..."
+          />
         </label>
 
         <label for="mensagem">
@@ -16,12 +28,17 @@
             cols=""
             rows=""
             placeholder="Escreva a sua mensagem..."
+            v-model="contato.mensagem"
           >
           </textarea>
         </label>
 
         <div class="container-btn">
-          <Botao type="type" estilo="btn-enviar-msg" valor="Enviar Mensagem" />
+          <Botao
+            type="submit"
+            estilo="btn-enviar-msg"
+            valor="Enviar Mensagem"
+          />
         </div>
         <!-- <button type="submit" class="btn-enviar-msg">Enviar Mensagem</button> -->
       </form>
@@ -44,10 +61,53 @@
 
 <script>
 import Botao from "../botao/Botao.vue";
+import AlertResponse from "../alertResponse/AlertResponse.vue";
 
 export default {
   components: {
-    Botao
+    Botao,
+    AlertResponse
+  },
+
+  data() {
+    return {
+      contato: {
+        email: "",
+        mensagem: ""
+      },
+
+      resposta: {
+        mensagem: "",
+        class: ""
+      }
+    };
+  },
+
+  methods: {
+    setMensagemSucesso() {
+      this.resposta.mensagem = "Mensagem enviada com sucesso!";
+      this.resposta.class = "sucesso";
+    },
+
+    setMensagemFalha() {
+      this.resposta.mensagem = "Ocorreu Algum Problema!";
+      this.resposta.class = "falha";
+    },
+
+    clearContato() {
+      this.contato.email = "";
+      this.contato.mensagem = "";
+    },
+
+    enviarMensagem() {
+      console.log(this.contato);
+      if (this.contato.email) {
+        this.setMensagemSucesso();
+        this.clearContato();
+      } else {
+        this.setMensagemFalha();
+      }
+    }
   }
 };
 </script>
@@ -59,7 +119,20 @@ export default {
 }
 
 .titulo-centralizado {
-  margin-bottom: 2em;
+  margin-bottom: 1em;
+}
+
+.alert-response {
+  width: 40%;
+  padding: 0.5em 0.2em;
+  margin: 1em auto;
+  border-color: ;
+}
+
+.sucesso {
+}
+
+.falha {
 }
 
 .container-contato {

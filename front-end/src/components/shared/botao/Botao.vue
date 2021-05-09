@@ -22,6 +22,12 @@ export default {
     setBtnClass() {
       return this.estilo;
     }
+  },
+
+  methods: {
+    customFuction() {
+      // this.$emit("onSubmit", "value");
+    }
   }
 };
 </script>
