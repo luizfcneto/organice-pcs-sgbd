@@ -2,7 +2,12 @@
   <div class="">
     <div class="cadastro">
       <h2 class="titulo-centralizado">Cadastro:</h2>
-      <form class="container-cadastro">
+      <AlertResponse
+        v-show="cadastro.mensagem"
+        :status="cadastro.class"
+        :mensagem="cadastro.mensagem"
+      />
+      <form class="container-cadastro" @submit.prevent="fazCadastro($event)">
         <label for="nome">
           Nome*:
           <span class="error" v-if="!cadastro.nomeValido">
@@ -12,11 +17,10 @@
             class="input-cadastro"
             id="nome"
             type="text"
-            v-on:input="setCadastroNome($event)"
+            v-model="cadastro.nome"
             placeholder="Nome..."
           />
         </label>
-
         <label for="celular">
           Celular*:
           <span class="error" v-if="!cadastro.celularValido">
@@ -26,11 +30,10 @@
             class="input-cadastro"
             id="celular"
             type="text"
-            v-on:input="setCadastroCelular($event)"
+            v-model="cadastro.celular"
             placeholder="XXXXX-XXXX"
           />
         </label>
-
         <label for="email">
           Email*:
           <span class="error" v-if="!cadastro.emailValido">
@@ -40,17 +43,16 @@
             class="input-cadastro"
             id="email"
             type="email"
-            v-on:input="setCadastroEmail($event)"
+            v-model="cadastro.email"
             placeholder="exemplo@email.com"
-          />
-        </label>
+        /></label>
 
         <label for="senha">
           Senha*:
           <font-awesome-icon
             :icon="eye"
-            v-on:click.prevent="showPassword($event)"
-          />
+            v-on:click.prevent="showPassword($event)"/>
+
           <span class="error" v-if="!cadastro.senhaValida">
             {{ this.erro.senha }}
           </span>
@@ -59,10 +61,9 @@
             class="input-cadastro"
             id="senha"
             type="password"
-            v-on:input="setCadastroSenha($event)"
+            v-model="cadastro.senha"
             placeholder="Senha..."
-          />
-        </label>
+        /></label>
 
         <label id="label-confirmar-senha" for="confirmarSenha">
           Confirmar Senha*:
@@ -70,6 +71,7 @@
             :icon="eye"
             v-on:click.prevent="showPassword($event)"
           />
+
           <span class="error" v-if="!cadastro.confirmarSenhaValida">
             {{ this.erro.confirmarSenha }}
           </span>
@@ -77,7 +79,7 @@
             class="input-cadastro"
             id="confirmarSenha"
             type="password"
-            v-on:input="setCadastroConfirmaSenha($event)"
+            v-model="cadastro.confirmarSenha"
             placeholder="Confirme a senha..."
           />
         </label>
@@ -91,24 +93,23 @@
             class="input-cadastro"
             id="endereco"
             type="text"
-            v-on:input="setCadastroEndereco($event)"
+            v-model="cadastro.endereco"
             placeholder="Endereco..."
-          />
-        </label>
+        /></label>
 
         <div class="container-btn">
-          <Botao
-            type="submit"
-            estilo="btn-form"
-            valor="Cadastrar"
-            @click.prevent="fazCadastro($event)"
-          />
+          <Botao type="submit" estilo="btn-form" valor="Cadastrar" />
         </div>
       </form>
 
       <h2 class="titulo-centralizado">Login:</h2>
+      <AlertResponse
+        v-show="login.mensagem"
+        :status="login.class"
+        :mensagem="login.mensagem"
+      />
 
-      <form class="container-login">
+      <form class="container-login" @submit.prevent="fazLogin($event)">
         <label for="emailLogin">
           Email*:
           <span class="error" v-if="!login.emailValido">
@@ -118,7 +119,7 @@
             class="input-login"
             id="emailLogin"
             type="text"
-            v-on:input="setLoginEmail($event)"
+            v-model="login.email"
             placeholder="exemplo@email.com"
           />
         </label>
@@ -130,24 +131,18 @@
           </span>
           <font-awesome-icon
             :icon="eye"
-            v-on:click.prevent="showPassword($event)"
-          />
+            v-on:click.prevent="showPassword($event)"/>
+
           <input
             class="input-login"
             id="senhaLogin"
             type="password"
-            v-on:input="setLoginSenha($event)"
+            v-model="login.senha"
             placeholder="senha..."
-          />
-        </label>
+        /></label>
         <a href="#"> esqueci minha senha </a>
         <div class="container-btn">
-          <Botao
-            type="submit"
-            estilo="btn-form"
-            valor="Login"
-            @click.prevent="fazLogin($event)"
-          />
+          <Botao type="submit" estilo="btn-form" valor="Login" />
         </div>
       </form>
     </div>
@@ -168,6 +163,7 @@ import {
   validateEndereco,
   validateLogin
 } from "../../../utils/validations.js";
+import AlertResponse from "../../shared/alertResponse/AlertResponse.vue";
 
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 
@@ -176,6 +172,7 @@ export default {
 
   components: {
     Header,
+    AlertResponse,
     NavigationBar,
     Botao,
     Footer
@@ -201,13 +198,17 @@ export default {
         confirmarSenha: "",
         confirmarSenhaValida: true,
         endereco: "",
-        enderecoValido: true
+        enderecoValido: true,
+        mensagem: "",
+        class: ""
       },
       login: {
         email: "",
         emailValido: true,
         senha: "",
-        senhaValida: true
+        senhaValida: true,
+        mensagem: "",
+        class: ""
       },
       erro: {
         nome: "",
@@ -217,12 +218,9 @@ export default {
         confirmarSenha: "",
         endereco: ""
       },
-      msgCadastroMalSucedido: "Aconteceu algum problema interno!",
-      msgCadastroBemSucedido:
-        "Cadastro bem sucedido, preencha formulário de login!",
+
       urlRealizaCadastro: "",
-      urlRealizaLogin: "",
-      msgLoginMalSucedido: ""
+      urlRealizaLogin: ""
     };
   },
 
@@ -245,25 +243,6 @@ export default {
 
       this.login.emailValido = true;
       this.login.senhaValida = true;
-    },
-
-    setCadastroNome: function(event) {
-      this.cadastro.nome = event.target.value;
-    },
-    setCadastroCelular: function(event) {
-      this.cadastro.celular = event.target.value;
-    },
-    setCadastroEmail: function(event) {
-      this.cadastro.email = event.target.value;
-    },
-    setCadastroSenha: function(event) {
-      this.cadastro.senha = event.target.value;
-    },
-    setCadastroConfirmaSenha: function(event) {
-      this.cadastro.confirmarSenha = event.target.value;
-    },
-    setCadastroEndereco: function(event) {
-      this.cadastro.endereco = event.target.value;
     },
 
     setCadastroNomeValido: function() {
@@ -304,16 +283,8 @@ export default {
       this.erro.endereco = msg;
     },
 
-    setLoginEmail: function(event) {
-      this.login.email = event.target.value;
-    },
-
     setLoginEmailValido: function() {
       this.login.emailValido = !this.login.emailValido;
-    },
-
-    setLoginSenha: function(event) {
-      this.login.senha = event.target.value;
     },
 
     setLoginSenhaValida: function() {
@@ -413,6 +384,21 @@ export default {
       }
     },
 
+    setMensagemCadastroSucesso() {
+      this.cadastro.mensagem = "Cadastro Bem Sucedido!";
+      this.cadastro.class = "sucesso";
+    },
+
+    setMensagemCadastroFalha() {
+      this.cadastro.mensagem = "Ocorreu um erro ao realizar Cadadastro!";
+      this.cadastro.class = "falha";
+    },
+
+    setMensagemLoginFalha() {
+      this.login.mensagem = "Ocorreu um errro ao efetuar Login!";
+      this.login.class = "falha";
+    },
+
     // Post para fazer cadastro do visitante
     fazCadastro: async function() {
       let body = {
@@ -422,7 +408,6 @@ export default {
         senha: this.cadastro.senha,
         endereco: this.cadastro.endereco
       };
-
       try {
         const response = await fetch(this.urlRealizaCadastro, {
           method: "POST",
@@ -430,7 +415,10 @@ export default {
         });
 
         if (response.status < 200 || response.status > 299) {
+          this.setMensagemCadastroFalha();
           throw new Error();
+        } else {
+          this.setMensagemCadastroSucesso();
         }
       } catch (error) {
         console.log(error);
@@ -447,11 +435,14 @@ export default {
       try {
         const response = await fetch(this.urlRealizaLogin, {
           method: "POST",
-          body: JSON.stringfy(body)
+          body: JSON.stringify(body)
         });
 
         if (response.status < 200 || response.status > 299) {
+          this.setMensagemLoginFalha();
           throw new Error();
+        } else {
+          console.log(body);
         }
       } catch (error) {
         console.log(error);
