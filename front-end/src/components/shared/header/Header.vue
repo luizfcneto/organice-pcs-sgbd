@@ -58,7 +58,7 @@ export default {
         },
         {
           titulo: "Minha Cesta",
-          url: "#"
+          url: "/minha-cesta"
         },
         {
           titulo: "Sair",

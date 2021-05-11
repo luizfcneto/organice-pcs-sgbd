@@ -10,6 +10,7 @@
       :preco="produto.preco"
       :compravel="true"
       :emEstoque="true"
+      :quantidade="produto.quantidade"
     />
   </div>
 </template>
@@ -34,28 +35,32 @@ export default {
           imgSrc: srcBatata,
           descricao: "Batatinha batatão batata",
           categoria: "Legumes",
-          preco: "2,49"
+          preco: "2,49",
+          quantidade: 0
         },
         {
           nome: "Cenoura",
           imgSrc: srcCenoura,
           descricao: "Cenoura cenourão cenourinha",
           categoria: "Legumes",
-          preco: "1,50"
+          preco: "1,50",
+          quantidade: 0
         },
         {
           nome: "Morango",
           imgSrc: srcMorango,
           descricao: "Morango moranguinho da morangolandia",
           categoria: "Frutas",
-          preco: "9,50"
+          preco: "9,50",
+          quantidade: 0
         },
         {
           nome: "ETC",
           imgSrc: srcMercearia,
           descricao: "Um monte de coisa",
           categoria: "Mercearia",
-          preco: "1110,50"
+          preco: "1110,50",
+          quantidade: 0
         }
       ]
     };

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header :auth="false" :user="user" />
+    <Header :auth="true" :user="user" />
     <NavigationBar />
     <router-view> </router-view>
     <Footer />

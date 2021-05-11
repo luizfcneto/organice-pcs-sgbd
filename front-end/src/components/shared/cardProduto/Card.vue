@@ -15,15 +15,23 @@
         <p class="p-preco">preço: {{ preco }}</p>
       </div>
       <div class="quantidade-produto" v-if="emEstoque">
-        <img :src="iconeMenos" class="icone-menos" />
-        <span class="quantidade"> 0 </span>
-        <img :src="iconeMais" class="icone-mais" />
+        <img
+          :src="iconeMenos"
+          class="icone-menos"
+          @click="quantidade > 0 ? quantidade-- : quantidade"
+        />
+        <span class="quantidade"> {{ quantidade }} </span>
+        <img :src="iconeMais" class="icone-mais" @click="quantidade++" />
       </div>
 
       <div class="container-btn">
-        <Botao type="submit" estilo="btn-sm" valor="Comprar" />
+        <Botao
+          type="submit"
+          estilo="btn-sm"
+          valor="Comprar"
+          @click.prevent="adicionarNoCarrinho($event)"
+        />
       </div>
-      <!-- <button type="submit" class="btn-comprar">Comprar</button> -->
     </div>
   </div>
 </template>
@@ -47,6 +55,7 @@ export default {
     "categoria",
     "preco",
     "compravel",
+    "quantidade",
     "emEstoque"
   ],
 
@@ -77,6 +86,10 @@ export default {
           result = "brown";
       }
       return result;
+    },
+
+    adicionarNoCarrinho: function(event) {
+      console.log(event);
     }
   }
 };
